@@ -21,7 +21,7 @@ used to train the proposed density-aware network.
 	} 
 
 <p align="center">
-<img src="demo_image/over_input1.png" width="300px" height="200px"/>         <img src="demo_image/over_our.png" width="300px" height="200px"/>
+<img src="demo_image/over_input1.png" width="250px" height="200px"/>         <img src="demo_image/over_our.png" width="250px" height="200px"/>
 <img src="demo_image/17_input.jpg" width="300px" height="500px"/>         <img src="demo_image/17_our1.jpg" width="300px" height="500px"/>
 </p>
 

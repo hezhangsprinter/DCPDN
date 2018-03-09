@@ -54,11 +54,11 @@ https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sha
 
 
 ## Training
-	Training will be released soon.
+	python train.py --dataroot ./train512 --valDataroot ./val512 --exp ./checkpoints/
 ## Testing
 	python demo.py --dataroot ./your_dataroot --valDataroot ./your_dataroot --netG ./pre_trained/netG_epoch_9.pth   
-
 ## Dataset
+
 
 Training images (syn)  can be downloaded at (put it in the folder 'facades'):
 https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sharing
@@ -82,4 +82,4 @@ https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sha
 
 ## Acknowledgments
 
-Great thanks for the insight discussion with [Vishwanath Sindagi](http://www.vishwanathsindagi.com/) and initial discussion with [Dr. Zhou](https://sites.google.com/site/skevinzhou/home)
+Great thanks for the insight discussion with [Vishwanath Sindagi](http://www.vishwanathsindagi.com/) and initial discussion with [Dr. Kevin S. Zhou](https://sites.google.com/site/skevinzhou/home)

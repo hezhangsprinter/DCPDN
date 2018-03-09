@@ -58,6 +58,8 @@ https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sha
 
 ## Training
 	python train.py --dataroot ./train512 --valDataroot ./val512 --exp ./checkpoints/
+More training details (especially how to repreduce the results using stage-wise training strategy) can be found in the paper. 
+
 ## Testing
 	python demo.py --dataroot ./your_dataroot --valDataroot ./your_dataroot --netG ./pre_trained/netG_epoch_9.pth   
 ## Dataset

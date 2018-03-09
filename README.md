@@ -13,8 +13,8 @@ ferent scales and shapes, a multi-stream densely connected de-raining network is
 features from different scales. Furthermore, a new dataset containing images with rain-density labels is created and
 used to train the proposed density-aware network. 
 
-	@inproceedings{derain_zhang_2018,		
-	  title={Density-aware Single Image De-raining using a Multi-stream Dense Network},
+	@inproceedings{dehaze_zhang_2018,		
+	  title={Densely Connected Pyramid Dehazing Network},
 	  author={Zhang, He and Patel, Vishal M},
 	  booktitle={CVPR},
 	  year={2018}

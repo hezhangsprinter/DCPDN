@@ -22,8 +22,6 @@ used to train the proposed density-aware network.
 
 <p align="center">
 <img src="demo_image/over_input1.png" width="250px" height="200px"/>         <img src="demo_image/over_our.png" width="250px" height="200px"/>
-<img src="demo_image/17_input.jpg" width="300px" height="500px"/>         <img src="demo_image/17_our1.jpg" width="300px" height="500px"/>
-</p>
 
 
 
@@ -45,12 +43,15 @@ used to train the proposed density-aware network.
    numpy, scipy, PIL, pdb
    
 ## Demo using pre-trained model
-	python test.py --dataroot ./facades/github --valDataroot ./facades/github --netG ./pre_trained/netG_epoch_9.pth   
-Pre-trained model can be downloaded at (put it in the folder 'pre_trained'): https://drive.google.com/drive/folders/1VRUkemynOwWH70bX9FXL4KMWa4s_PSg2?usp=sharing
+	python demo.py --dataroot ./facades/nat_new4 --valDataroot ./facades/nat_new4 --netG ./demo_model/netG_epoch_8.pth   
+Pre-trained dehazing model can be downloaded at (put it in the folder 'demo_model'): https://drive.google.com/drive/folders/1BmNP5ZUWEFeGGEL1NsZSRbYPyjBQ7-nn?usp=sharing
 
-Pre-trained density-aware model can be downloaded at (Put it in the folder 'classification'): https://drive.google.com/drive/folders/1-G86JTvv7o1iTyfB2YZAQTEHDtSlEUKk?usp=sharing
+Testing images (nature)  can be downloaded at (put it in the folder 'facades'):
+https://drive.google.com/drive/folders/1q5bRQGgS8SFEGqMwrLlku4Ad-0Tn3va7?usp=sharing
 
-Pre-trained residule-aware model can be downloaded at (Put it in the folder 'residual_heavy'): https://drive.google.com/drive/folders/1bomrCJ66QVnh-WduLuGQhBC-aSWJxPmI?usp=sharing
+Testing images (syn (Test A in the paper))  can be downloaded at (put it in the folder 'facades'):
+https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sharing
+
 
 ## Training
 	Training will be released soon.

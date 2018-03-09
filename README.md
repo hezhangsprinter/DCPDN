@@ -64,7 +64,7 @@ Training images (syn)  can be downloaded at (put it in the folder 'facades'):
 https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sharing
 
 All the syn samples (both training and testing) are strored in Hdf5 file.
-Sample python  code how to read the Hdf5:
+Following are the sample python codes how to read the Hdf5 file:
     
     file_name=self.root+'/'+str(index)+'.h5'
     f=h5py.File(file_name,'r')

@@ -35,9 +35,10 @@ used to train the proposed density-aware network.
    (conda install pytorch torchvision -c pytorch)
 
 2. Install Torch vision from the source.
-   (git clone https://github.com/pytorch/vision
-   cd vision
-   python setup.py install)
+   
+   	git clone https://github.com/pytorch/vision
+   	cd vision
+		python setup.py install
 
 3. Install python package: 
    numpy, scipy, PIL, pdb

@@ -59,8 +59,16 @@ https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sha
 	python demo.py --dataroot ./your_dataroot --valDataroot ./your_dataroot --netG ./pre_trained/netG_epoch_9.pth   
 
 ## Dataset
-Training and testing data will be released soon.
 
+Training images (syn)  can be downloaded at (put it in the folder 'facades'):
+https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sharing
+
+
+Testing images (nature)  can be downloaded at (put it in the folder 'facades'):
+https://drive.google.com/drive/folders/1q5bRQGgS8SFEGqMwrLlku4Ad-0Tn3va7?usp=sharing
+
+Testing images (syn (Test A in the paper))  can be downloaded at (put it in the folder 'facades'):
+https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sharing
 
 ## Acknowledgments
 

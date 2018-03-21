@@ -51,7 +51,7 @@ Testing images (syn (Test A in the paper))  can be downloaded at (put it in the 
 https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sharing
 
 
-## Training
+## Training （released soon）
 	python train.py --dataroot ./train512 --valDataroot ./val512 --exp ./checkpoints/
 More training details (especially how to repreduce the results using stage-wise training strategy) can be found in the paper. 
 

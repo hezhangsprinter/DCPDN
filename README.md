@@ -5,13 +5,15 @@
 
 [[Paper Link](https://arxiv.org/abs/1802.07412)] (CVPR'18)
 
-We present a novel density-aware multi-stream densely connected convolutional neural
-network-based algorithm, called DID-MDN, for joint rain density estimation and de-raining. The proposed method
-enables the network itself to automatically determine the rain-density information and then efficiently remove the
-corresponding rain-streaks guided by the estimated rain-density label. To better characterize rain-streaks with dif-
-ferent scales and shapes, a multi-stream densely connected de-raining network is proposed which efficiently leverages
-features from different scales. Furthermore, a new dataset containing images with rain-density labels is created and
-used to train the proposed density-aware network. 
+We propose a new end-to-end single image dehazing method, called Densely Connected Pyramid Dehazing Network (DCPDN), which can jointly learn the transmission map, atmospheric light and dehazing all together. The end-
+to-end learning is achieved by directly embedding the atmospheric scattering model into the network, thereby ensur-
+ing that the proposed method strictly follows the physics-driven scattering model for dehazing. Inspired by the
+dense network that can maximize the information flow along features from different levels, we propose a new
+edge-preserving densely connected encoder-decoder structure with multi-level pyramid pooling module for estimat-
+ing the transmission map. This network is optimized using a newly introduced edge-preserving loss function. To
+further incorporate the mutual structural information between the estimated transmission map and the dehazed re-
+sult, we propose a joint-discriminator based on generative adversarial network framework to decide whether the
+corresponding dehazed image and the estimated transmission map are real or fake. An ablation study is conducted to demonstrate the effectiveness of each module evaluated at both estimated transmission map and dehazed result. Extensive experiments demonstrate that the proposed method achieves significant improvements over the state-of-the-art methods.
 
 	@inproceedings{dehaze_zhang_2018,		
 	  title={Densely Connected Pyramid Dehazing Network},

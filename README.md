@@ -91,7 +91,7 @@ https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sha
 ## Extension
 The proposed transmission net has demonstrated it effectiveness in multiple appplcaitions such as segmentation. crowd counting, face reconstruction from sparse sample and image synthesis. 
 
-It has also been asked by other researchers and been used for participating the [NTIRE-2018] (http://www.vision.ee.ethz.ch/en/ntire18/) dehazing challenge. 
+It has also been asked by other researchers and been used for participating the [NTIRE-2018](http://www.vision.ee.ethz.ch/en/ntire18/) dehazing challenge. 
 
 ## Acknowledgments
 

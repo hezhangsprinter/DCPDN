@@ -12,12 +12,7 @@ cudnn.fastest = True
 import torch.optim as optim
 import torchvision.utils as vutils
 from torch.autograd import Variable
-
-import models.UNet as net
 from misc import *
-
-# from myutils.vgg16 import Vgg16
-# from myutils import utils
 import pdb
 import argparse
 import os
@@ -33,7 +28,6 @@ import torch.optim as optim
 import torchvision.utils as vutils
 from torch.autograd import Variable
 from misc import *
-import models.dehaze341  as net
 import models.dehaze22  as net
 
 

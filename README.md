@@ -87,6 +87,10 @@ https://drive.google.com/drive/folders/1q5bRQGgS8SFEGqMwrLlku4Ad-0Tn3va7?usp=sha
 Testing images (syn (Test A in the paper))  can be downloaded at (put it in the folder 'facades'):
 https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sharing
 
+
+## Extension
+The proposed transmission net has demonstrated it effectiveness in multiple appplcaitions such as segmentation. crowd counting, face reconstruction from sparse sample and image synthesis. 
+
 ## Acknowledgments
 
 Great thanks for the insight discussion with [Vishwanath Sindagi](http://www.vishwanathsindagi.com/) and initial discussion with [Dr. Kevin S. Zhou](https://sites.google.com/site/skevinzhou/home)

@@ -97,7 +97,7 @@ Since the proposed methods using hdf5 file to load the training samples, the fol
 ## Extension
 The proposed transmission net has demonstrated it effectiveness in multiple appplcaitions such as segmentation. crowd counting, face reconstruction from sparse sample and image synthesis. 
 
-It has also been asked by other researchers and been used for participating the [NTIRE-2018](http://www.vision.ee.ethz.ch/en/ntire18/) dehazing challenge. 
+It has also been asked by other researchers and been used for participating the [NTIRE-2018](http://www.vision.ee.ethz.ch/en/ntire18/) dehazing challenge and the proposed netowrk has demonstrated effectivenss from the performance in leaderboard. 
 
 ## Acknowledgments
 

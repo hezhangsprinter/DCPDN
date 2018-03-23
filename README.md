@@ -81,7 +81,7 @@ Testing images (syn (Test A in the paper))  can be downloaded at (put it in the 
 https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sharing
 
 ## How to creat your own testing samples
-Since the proposed methods using hdf5 file to load the training samples, the following code help you to creat the testing or training sample yourself. 
+Since the proposed methods using hdf5 file to load the training samples, the generate_testsample.py help you to creat the testing or training sample yourself. 
 
 
 

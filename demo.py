@@ -28,7 +28,7 @@ import torch.optim as optim
 import torchvision.utils as vutils
 from torch.autograd import Variable
 from misc import *
-import models.dehaze22  as net
+import dehaze22  as net
 
 
 import pdb
@@ -230,12 +230,12 @@ for epoch in range(1):
 
     x_hat, tran_hat, atp_hat, dehaze2= netG(input)
 
-    zz=tran_hat.data
+    zz=x_hat.data
 
     iteration=iteration+1
 
     index2 = 0
-    directory='./result_cvpr18/image/real_syn_test_tran/'
+    directory='./result_cvpr18/image/real_dehazed/'
     if not os.path.exists(directory):
         os.makedirs(directory)
     for i in range(opt.valBatchSize):
@@ -243,5 +243,5 @@ for epoch in range(1):
         print(index)
         zz1=zz[index2,:,:,:]
 
-        vutils.save_image(zz1, './result_cvpr18/image/real_syn_test_tran/'+str(index-1)+'_DCPCN.png', normalize=True, scale_each=False)
+        vutils.save_image(zz1, './result_cvpr18/image/real_dehazed/'+str(index-1)+'_DCPCN.png', normalize=True, scale_each=False)
 trainLogger.close()

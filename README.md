@@ -61,8 +61,7 @@ More training details (especially how to repreduce the results using stage-wise 
 
 
 Training images (syn)  can be downloaded at (put it in the folder 'facades'):
-https://drive.google.com/drive/folders/1hbwYCzoI3R3o2Gj_kfT6GHG7RmYEOA-P?usp=sharing
-
+https://drive.google.com/drive/folders/1Qv7SIZBVAtb9G1d6iVKu_8rVSsXJdv26?usp=sharing
 All the syn samples (both training and testing) are strored in Hdf5 file.
 Following are the sample python codes how to read the Hdf5 file:
     

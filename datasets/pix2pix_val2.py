@@ -61,7 +61,7 @@ class pix2pix_val(data.Dataset):
     f=h5py.File(file_name,'r')
     haze_image=f['haze'][:]
     trans_map=f['trans'][:]
-    ato_map=f['atom'][:]
+    ato_map=f['ato'][:]
     GT=f['gt'][:]
 
 

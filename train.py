@@ -69,6 +69,9 @@ torch.manual_seed(opt.manualSeed)
 torch.cuda.manual_seed_all(opt.manualSeed)
 print("Random Seed: ", opt.manualSeed)
 opt.workers=1
+
+
+
 # get dataloader
 dataloader = getLoader(opt.dataset,
                        opt.dataroot,
@@ -80,9 +83,9 @@ dataloader = getLoader(opt.dataset,
                        split='train',
                        shuffle=True,
                        seed=opt.manualSeed)
-opt.dataset='pix2pix_val'
 
 
+opt.dataset='pix2pix_val2'
 valDataloader = getLoader(opt.dataset,
                           opt.valDataroot,
                           opt.imageSize, #opt.originalSize,
@@ -97,6 +100,8 @@ valDataloader = getLoader(opt.dataset,
 # get logger
 trainLogger = open('%s/train.log' % opt.exp, 'w')
 
+
+# Two directional gradient loss function
 def gradient(y):
     gradient_h=torch.abs(y[:, :, :, :-1] - y[:, :, :, 1:])
     gradient_y=torch.abs(y[:, :, :-1, :] - y[:, :, 1:, :])
@@ -118,24 +123,19 @@ if opt.netG != '':
   netG.load_state_dict(torch.load(opt.netG))
 print(netG)
 
-# netD = net.D(inputChannelSize + outputChannelSize + outputChannelSize, ndf)
-netD = net.D(inputChannelSize  + outputChannelSize, ndf)
+
+netD = net.D(inputChannelSize + outputChannelSize, ndf)
 
 netD.apply(weights_init)
 if opt.netD != '':
   netD.load_state_dict(torch.load(opt.netD))
-# print(netD)
 
-
-netD_tran = net.D_tran(inputChannelSize + outputChannelSize, ndf)
-netD_tran.apply(weights_init)
-
-# print(netD_tran)
 
 
 netG.train()
 netD.train()
-netD_tran.train()
+
+
 criterionBCE = nn.BCELoss()
 criterionCAE = nn.L1Loss()
 
@@ -152,13 +152,13 @@ label_d = torch.FloatTensor(opt.batchSize)
 
 target = torch.FloatTensor(opt.batchSize, outputChannelSize, opt.imageSize, opt.imageSize)
 input = torch.FloatTensor(opt.batchSize, inputChannelSize, opt.imageSize, opt.imageSize)
-depth = torch.FloatTensor(opt.batchSize, inputChannelSize, opt.imageSize, opt.imageSize)
+trans = torch.FloatTensor(opt.batchSize, inputChannelSize, opt.imageSize, opt.imageSize)
 ato = torch.FloatTensor(opt.batchSize, inputChannelSize, opt.imageSize, opt.imageSize)
 
 
 val_target = torch.FloatTensor(opt.valBatchSize, outputChannelSize, opt.imageSize, opt.imageSize)
 val_input = torch.FloatTensor(opt.valBatchSize, inputChannelSize, opt.imageSize, opt.imageSize)
-val_depth = torch.FloatTensor(opt.valBatchSize, inputChannelSize, opt.imageSize, opt.imageSize)
+val_trans = torch.FloatTensor(opt.valBatchSize, inputChannelSize, opt.imageSize, opt.imageSize)
 val_ato = torch.FloatTensor(opt.valBatchSize, inputChannelSize, opt.imageSize, opt.imageSize)
 
 
@@ -178,19 +178,18 @@ lambdaIMG = opt.lambdaIMG
 
 netD.cuda()
 netG.cuda()
-netD_tran.cuda()
 criterionBCE.cuda()
 criterionCAE.cuda()
 
 
-target, input, depth, ato = target.cuda(), input.cuda(), depth.cuda(), ato.cuda()
-val_target, val_input, val_depth, val_ato = val_target.cuda(), val_input.cuda(), val_depth.cuda(), val_ato.cuda()
+target, input, trans, ato = target.cuda(), input.cuda(), trans.cuda(), ato.cuda()
+val_target, val_input, val_trans, val_ato = val_target.cuda(), val_input.cuda(), val_trans.cuda(), val_ato.cuda()
 
 target = Variable(target)
 input = Variable(input)
 # input = Variable(input, requires_grad=False)
 
-depth = Variable(depth)
+trans = Variable(trans)
 ato = Variable(ato)
 
 # Initialize VGG-16
@@ -206,7 +205,7 @@ label_d = Variable(label_d.cuda())
 val_iter = iter(valDataloader)
 data_val = val_iter.next()
 
-val_input_cpu, val_tran_cpu, val_target_cpu, val_ato_cpu = data_val
+val_input_cpu, val_target_cpu, val_tran_cpu, val_ato_cpu = data_val
 
 val_target_cpu, val_input_cpu = val_target_cpu.float().cuda(), val_input_cpu.float().cuda()
 val_tran_cpu, val_ato_cpu = val_tran_cpu.float().cuda(), val_ato_cpu.float().cuda()
@@ -222,7 +221,7 @@ vutils.save_image(val_input, '%s/real_input.png' % opt.exp, normalize=True)
 # get optimizer
 optimizerD = optim.Adam(netD.parameters(), lr = opt.lrD, betas = (opt.beta1, 0.999), weight_decay=opt.wd)
 optimizerG = optim.Adam(netG.parameters(), lr = opt.lrG, betas = (opt.beta1, 0.999), weight_decay=0.00005)
-optimizerD_tran=optim.Adam(netD_tran.parameters(), lr = opt.lrD, betas = (opt.beta1, 0.999), weight_decay=opt.wd)
+
 # NOTE training loop
 ganIterations = 0
 for epoch in range(opt.niter):
@@ -232,24 +231,24 @@ for epoch in range(opt.niter):
 
 
   for i, data in enumerate(dataloader, 0):
-    if opt.mode == 'B2A':
-        input_cpu, target_cpu, depth_cpu, ato_cpu = data
-    elif opt.mode == 'A2B' :
-        input_cpu, target_cpu, depth_cpu, ato_cpu = data
+
+    input_cpu, target_cpu, trans_cpu, ato_cpu = data
     batch_size = target_cpu.size(0)
 
-    target_cpu, input_cpu, depth_cpu, ato_cpu = target_cpu.float().cuda(), input_cpu.float().cuda(), depth_cpu.float().cuda(), ato_cpu.float().cuda()
+    target_cpu, input_cpu, trans_cpu, ato_cpu = target_cpu.float().cuda(), input_cpu.float().cuda(), trans_cpu.float().cuda(), ato_cpu.float().cuda()
+    
+    
     # get paired data
     target.data.resize_as_(target_cpu).copy_(target_cpu)
     input.data.resize_as_(input_cpu).copy_(input_cpu)
-    depth.data.resize_as_(depth_cpu).copy_(depth_cpu)
+    trans.data.resize_as_(trans_cpu).copy_(trans_cpu)
     ato.data.resize_as_(ato_cpu).copy_(ato_cpu)
 
     # target_cpu, input_cpu = target_cpu.float().cuda(), input_cpu.float().cuda()
     # # NOTE paired samples
     # target.data.resize_as_(target_cpu).copy_(target_cpu)
     # input.data.resize_as_(input_cpu).copy_(input_cpu)
-    # depth.data.resize_as_(depth_cpu).copy_(depth_cpu)
+    # trans.data.resize_as_(trans_cpu).copy_(trans_cpu)
 
 
     for p in netD.parameters():
@@ -269,7 +268,7 @@ for epoch in range(opt.niter):
 
     # NOTE: compute L_cGAN in eq.(2)
     label_d.data.resize_((batch_size, 1, sizePatchGAN, sizePatchGAN)).fill_(real_label)
-    output = netD(torch.cat([input, target], 1)) # conditional
+    output = netD(torch.cat([trans, target], 1)) # conditional
     errD_real = criterionBCE(output, label_d)
     errD_real.backward()
     D_x = output.data.mean()
@@ -277,11 +276,11 @@ for epoch in range(opt.niter):
     fake = x_hat.detach()
     fake = Variable(imagePool.query(fake.data))
 
-    fake_depth = tran_hat.detach()
-    fake_depth = Variable(imagePool.query(fake_depth.data))
+    fake_trans = tran_hat.detach()
+    fake_trans = Variable(imagePool.query(fake_trans.data))
 
     label_d.data.fill_(fake_label)
-    output = netD(torch.cat([input, fake], 1)) # conditional
+    output = netD(torch.cat([fake_trans, fake], 1)) # conditional
     errD_fake = criterionBCE(output, label_d)
     errD_fake.backward()
     D_G_z1 = output.data.mean()
@@ -299,44 +298,38 @@ for epoch in range(opt.niter):
 
     # compute L_L1 (eq.(4) in the paper
     L_img_ = criterionCAE(x_hat, target)
-
-    #
-    # if L_img_>0.1 and :
-    #     lambdaIMG=5
-    # else:
-    #     lambdaIMG=1
-
-    L_img = 0.4*lambdaIMG * L_img_
+    L_img = lambdaIMG * L_img_
     if lambdaIMG <> 0:
-      #L_img.backward(retain_graph=True) # in case of current version of pytorch
       L_img.backward(retain_variables=True)
 
-    # NOTE compute L_L1 for transamission map
-    L_tran_ = criterionCAE(tran_hat, depth)
 
 
+    # NOTE compute L1 for transamission map
+    L_tran_ = criterionCAE(tran_hat, trans)
 
+    # NOTE compute gradient loss for transamission map
     gradie_h_est, gradie_v_est=gradient(tran_hat)
-    gradie_h_gt, gradie_v_gt=gradient(depth)
+    gradie_h_gt, gradie_v_gt=gradient(trans)
 
     L_tran_h = criterionCAE(gradie_h_est, gradie_h_gt)
     L_tran_v = criterionCAE(gradie_v_est, gradie_v_gt)
 
     L_tran =  lambdaIMG * (L_tran_+ 2*L_tran_h+ 2* L_tran_v)
+
     if lambdaIMG != 0:
         # L_img.backward(retain_graph=True) # in case of current version of pytorch
         L_tran.backward(retain_variables=True)
 
-    # Perceptual Loss 1
-    features_content = vgg(depth)
+    # NOTE feature loss for transmission map
+    features_content = vgg(trans)
     f_xc_c = Variable(features_content[1].data, requires_grad=False)
 
     features_y = vgg(tran_hat)
     content_loss =  0.8*lambdaIMG* criterionCAE(features_y[1], f_xc_c)
     content_loss.backward(retain_variables=True)
 
-    # Perceptual Loss 2
-    features_content = vgg(depth)
+    # Edge Loss 2
+    features_content = vgg(trans)
     f_xc_c = Variable(features_content[0].data, requires_grad=False)
 
     features_y = vgg(tran_hat)
@@ -344,40 +337,19 @@ for epoch in range(opt.niter):
     content_loss1.backward(retain_variables=True)
 
 
-    # NOTE compute L_L1 for atop-map
+    # NOTE compute L1 for atop-map
     L_ato_ = criterionCAE(atp_hat, ato)
     L_ato =  lambdaIMG * L_ato_
     if lambdaIMG != 0:
-        # L_img.backward(retain_graph=True) # in case of current version of pytorch
         L_ato_.backward(retain_variables=True)
 
-    # Perceptual Loss 1
-    features_content = vgg(target)
-    f_xc_c = Variable(features_content[1].data, requires_grad=False)
 
-    features_y = vgg(x_hat)
-    content_loss =  0.8*lambdaIMG* criterionCAE(features_y[1], f_xc_c)
-    content_loss.backward(retain_variables=True)
 
-    # Perceptual Loss 2
-    features_content = vgg(target)
-    f_xc_c = Variable(features_content[0].data, requires_grad=False)
 
-    features_y = vgg(x_hat)
-    content_loss1 =  0.8*lambdaIMG* criterionCAE(features_y[0], f_xc_c)
-    content_loss1.backward(retain_variables=True)
 
-    # # Perceptual Loss 3
-    # features_content = vgg(target)
-    f_xc_c = Variable(features_content[2].data, requires_grad=False)
-
-    features_y = vgg(x_hat)
-    content_loss2 =  1*lambdaIMG* criterionCAE(features_y[2], f_xc_c)
-    content_loss2.backward(retain_variables=True)
-
-    # compute  gan  (eq.(2) in the paper
+    # compute  gan_loss for the joint discriminator
     label_d.data.fill_(real_label)
-    output = netD(torch.cat([input, x_hat], 1))
+    output = netD(torch.cat([tran_hat, x_hat], 1))
     errG_ = criterionBCE(output, label_d)
     errG = lambdaGAN * errG_
 

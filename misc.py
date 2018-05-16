@@ -37,6 +37,10 @@ def getLoader(datasetName, dataroot, originalSize, imageSize, batchSize=64, work
   elif datasetName == 'pix2pix_val':
     from datasets.pix2pix_val import pix2pix_val as commonDataset
     import torchvision.transforms as transforms
+
+  elif datasetName == 'pix2pix_val2':
+    from datasets.pix2pix_val2 import pix2pix_val as commonDataset
+    import torchvision.transforms as transforms
   if split == 'train':
     dataset = commonDataset(root=dataroot,
                             transform=transforms.Compose([

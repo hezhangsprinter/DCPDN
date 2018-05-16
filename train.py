@@ -57,7 +57,7 @@ parser.add_argument('--netD', default='', help="path to netD (to continue traini
 parser.add_argument('--workers', type=int, help='number of data loading workers', default=1)
 parser.add_argument('--exp', default='sample', help='folder to output images and model checkpoints')
 parser.add_argument('--display', type=int, default=5, help='interval for displaying train-logs')
-parser.add_argument('--evalIter', type=int, default=500, help='interval for evauating(generating) images from valDataroot')
+parser.add_argument('--evalIter', type=int, default=50, help='interval for evauating(generating) images from valDataroot')
 opt = parser.parse_args()
 print(opt)
 
@@ -255,7 +255,6 @@ for epoch in range(opt.niter):
       p.requires_grad = True
 
     netD.zero_grad()
-    netD_tran.zero_grad()
     sizePatchGAN=62
 
     x_hat, tran_hat, atp_hat, dehaze21 = netG(input)

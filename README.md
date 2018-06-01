@@ -28,7 +28,7 @@ corresponding dehazed image and the estimated transmission map are real or fake.
 ## Installation:
 1. Install PyTorch and dependencies from http://pytorch.org (Ubuntu+Python2.7)
    (conda install pytorch torchvision -c pytorch)
-
+Install pytorch 0.3.1 https://pytorch.org/previous-versions/
 2. Install Torch vision from the source.
    
    	git clone https://github.com/pytorch/vision

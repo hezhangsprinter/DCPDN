@@ -62,7 +62,13 @@ More training details (especially how to repreduce the results using stage-wise 
 
 Training images (syn)  can be downloaded at (put it in the folder 'facades'):
 https://drive.google.com/drive/folders/1Qv7SIZBVAtb9G1d6iVKu_8rVSsXJdv26?usp=sharing
+
 All the syn samples (both training and testing) are strored in Hdf5 file.
+You can also generate your sample using 'create_train.py'
+(Please download the NYU-depth @ http://horatio.cs.nyu.edu/mit/silberman/nyu_depth_v2/nyu_depth_v2_labeled.mat)
+
+
+
 Following are the sample python codes how to read the Hdf5 file:
     
     file_name=self.root+'/'+str(index)+'.h5'

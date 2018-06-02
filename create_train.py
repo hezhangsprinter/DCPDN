@@ -132,7 +132,3 @@ for index in range(1000):
         h5f.create_dataset('trans',data=max_transmission)
         h5f.create_dataset('atom',data=rep_atmosphere)
         h5f.create_dataset('gt',data=gt_image)
-
-
-        pdb.set_trace()
-

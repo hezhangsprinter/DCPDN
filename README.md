@@ -59,7 +59,8 @@ More training details (especially how to repreduce the results using stage-wise 
 	python demo.py --dataroot ./your_dataroot --valDataroot ./your_dataroot --netG ./pre_trained/netG_epoch_9.pth   
 
 ## Reproduce
-    To reproduce the quantative results shown in the paper, please save both generated and target using python demo.py  into the .png format and then testing using offline tool such as the psnr and ssim measurment in python or matlab. 
+
+To reproduce the quantative results shown in the paper, please save both generated and target using python demo.py  into the .png format and then test using offline tool such as the psnr and ssim measurment in python or matlab. 
 
 ## Dataset
 

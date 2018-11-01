@@ -57,6 +57,10 @@ More training details (especially how to repreduce the results using stage-wise 
 
 ## Testing
 	python demo.py --dataroot ./your_dataroot --valDataroot ./your_dataroot --netG ./pre_trained/netG_epoch_9.pth   
+
+## Reproduce
+    To reproduce the quantative results shown in the paper, please save both generated and target using python demo.py  into the .png format and then testing using offline tool such as the psnr and ssim measurment in python or matlab. 
+
 ## Dataset
 
 
@@ -66,8 +70,6 @@ https://drive.google.com/drive/folders/1Qv7SIZBVAtb9G1d6iVKu_8rVSsXJdv26?usp=sha
 All the syn samples (both training and testing) are strored in Hdf5 file.
 You can also generate your sample using 'create_train.py'
 (Please download the NYU-depth @ http://horatio.cs.nyu.edu/mit/silberman/nyu_depth_v2/nyu_depth_v2_labeled.mat)
-
-
 
 Following are the sample python codes how to read the Hdf5 file:
     

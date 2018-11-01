@@ -60,7 +60,8 @@ More training details (especially how to repreduce the results using stage-wise 
 
 ## Reproduce
 
-To reproduce the quantative results shown in the paper, please save both generated and target using python demo.py  into the .png format and then test using offline tool such as the psnr and ssim measurment in python or matlab. 
+To reproduce the quantitative results shown in the paper, please save both generated and target using python demo.py  into the .png format and then test using offline tool such as the PNSR and SSIM measurement in Python or Matlab.   In addition, please use netG.train() for testing since the batch for training is 1. 
+
 
 ## Dataset
 

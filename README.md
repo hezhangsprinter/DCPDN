@@ -101,3 +101,5 @@ It has also been asked by other researchers and used for participating the [NTIR
 ## Acknowledgments
 
 Great thanks for the insight discussion with [Vishwanath Sindagi](http://www.vishwanathsindagi.com/) and initial discussion with [Dr. Kevin S. Zhou](https://sites.google.com/site/skevinzhou/home)
+
+This work is under MIT license.

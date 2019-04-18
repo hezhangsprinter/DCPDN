@@ -42,7 +42,7 @@ class pix2pix(data.Dataset):
 
     if seed is not None:
       np.random.seed(seed)
-
+    self.paths = glob.glob(self.root + '/*h5')
   def __getitem__(self, index):
     # index = np.random.randint(1,self.__len__())
     # index = np.random.randint(self.__len__(), size=1)[0]
@@ -99,7 +99,7 @@ class pix2pix(data.Dataset):
     # if self.transform is not None:
     #   # NOTE preprocessing for each pair of images
     #   imgA, imgB = self.transform(imgA, imgB)
-    return haze_image, GT,  trans_map, ato_map
+    return haze_image, GT,  trans_map, ato_map, file_name[len(self.root)+1:-3]
 
   def __len__(self):
     train_list=glob.glob(self.root+'/*h5')

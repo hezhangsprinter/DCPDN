@@ -73,14 +73,17 @@ def array2PIL(arr, size):
 
 
 index=1
+
 train_list_per=glob.glob('./cvprw_test_resize_crop/*png')
+root = os.path.abspath('./cvprw_test_resize_crop')
+
 
 # print train_list_per
 from skimage import color
 total_num=0
 
 for item in train_list_per:
-
+    img_name = item[len(root) + 1:-4]
     img=misc.imread(item)
     # img=skimage.color.rgb2luv(img)
     # zz=img.shape
@@ -116,7 +119,7 @@ for item in train_list_per:
     # pdb.set_trace()
 
     # h5f=h5py.File('./facades/newsyn/'+str(total_num)+'.h5','w')
-    h5f=h5py.File('./facades/test_cvpr/'+str(total_num)+'.h5','w')
+    h5f=h5py.File('./facades/test_cvpr/'+img_name+'.h5','w')
 
     h5f.create_dataset('haze',data=haze_image)
     h5f.create_dataset('trans',data=gt_img)
@@ -127,7 +130,3 @@ for item in train_list_per:
     print img.min()
     total_num=total_num+1
     print total_num
-
-
-
-

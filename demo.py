@@ -214,9 +214,9 @@ for epoch in range(1):
     t0 = time.time()
 
     if opt.mode == 'B2A':
-        input_cpu, target_cpu, depth_cpu, ato_cpu = data
+        input_cpu, target_cpu, depth_cpu, ato_cpu, imgname = data
     elif opt.mode == 'A2B' :
-        input_cpu, target_cpu, depth_cpu, ato_cpu = data
+        input_cpu, target_cpu, depth_cpu, ato_cpu, imgname = data
     batch_size = target_cpu.size(0)
     # print(i)
     target_cpu, input_cpu, depth_cpu, ato_cpu = target_cpu.float().cuda(), input_cpu.float().cuda(), depth_cpu.float().cuda(), ato_cpu.float().cuda()
@@ -243,5 +243,5 @@ for epoch in range(1):
         print(index)
         zz1=zz[index2,:,:,:]
 
-        vutils.save_image(zz1, './result_cvpr18/image/real_dehazed/'+str(index-1)+'_DCPCN.png', normalize=True, scale_each=False)
+        vutils.save_image(zz1, './result_cvpr18/image/real_dehazed/'+imgname[index2]+'_DCPCN.png', normalize=True, scale_each=False)
 trainLogger.close()

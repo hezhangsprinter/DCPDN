@@ -205,7 +205,7 @@ label_d = Variable(label_d.cuda())
 val_iter = iter(valDataloader)
 data_val = val_iter.next()
 
-val_input_cpu, val_target_cpu, val_tran_cpu, val_ato_cpu = data_val
+val_input_cpu, val_target_cpu, val_tran_cpu, val_ato_cpu, imgname = data_val
 
 val_target_cpu, val_input_cpu = val_target_cpu.float().cuda(), val_input_cpu.float().cuda()
 val_tran_cpu, val_ato_cpu = val_tran_cpu.float().cuda(), val_ato_cpu.float().cuda()
@@ -232,12 +232,12 @@ for epoch in range(opt.niter):
 
   for i, data in enumerate(dataloader, 0):
 
-    input_cpu, target_cpu, trans_cpu, ato_cpu = data
+    input_cpu, target_cpu, trans_cpu, ato_cpu, imgname = data
     batch_size = target_cpu.size(0)
 
     target_cpu, input_cpu, trans_cpu, ato_cpu = target_cpu.float().cuda(), input_cpu.float().cuda(), trans_cpu.float().cuda(), ato_cpu.float().cuda()
-    
-    
+
+
     # get paired data
     target.data.resize_as_(target_cpu).copy_(target_cpu)
     input.data.resize_as_(input_cpu).copy_(input_cpu)

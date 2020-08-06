@@ -41,6 +41,7 @@ class pix2pix_val(data.Dataset):
     self.transform = transform
     self.loader = loader
     # self.sampler = SequentialSampler(dataset)
+    self.paths = glob.glob(self.root + '/*h5')
 
     if seed is not None:
       np.random.seed(seed)
@@ -81,10 +82,9 @@ class pix2pix_val(data.Dataset):
     # if np.random.uniform()>0.5:
     #   haze_image=np.flip(haze_image,2).copy()
 
-    return haze_image, GT,  trans_map, ato_map
+    return haze_image, GT,  trans_map, ato_map, file_name[len(self.root)+1:-3]
 
   def __len__(self):
     train_list=glob.glob(self.root+'/*h5')
     # print len(train_list)
     return len(train_list)
-
